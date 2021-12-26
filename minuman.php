@@ -73,7 +73,7 @@
 										while($tampil = mysqli_fetch_array($ambildata)){
 											echo "<li><div class=\"products\">
 													<a href=\"#\">
-														<img src=\"images/product-image-8.jpg\" alt=\"\">
+														<img src=".$tampil['filepath']." alt=\"\">
 													</a>
 													<a href=\"#\">
 														<h4>".$tampil['nama']."</h4>
@@ -81,7 +81,14 @@
 													<p class=\"price\">From: Rp.".$tampil['harga']."</p>
 													<p >".$tampil['deskripsi']."</p>
 													<div >
-														<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#tambah\">PESAN MAKAN</button>
+														<button 
+															type=\"button\"
+															class=\"btn btn-success btnpesan\"
+															data-nama='".$tampil['nama']."'
+															data-harga='".$tampil['harga']."'
+															data-tipe='".$tampil['tipe']."'
+															data-toggle=\"modal\"
+															data-target=\"#tambah\">PESAN Minum</button>
 													</div>
 												</div></li>";
 											$no++;
@@ -95,82 +102,102 @@
 					    	?>
 					
 					
-								<div class="example-modal">
-
-								  <div id="tambah" class="modal fade" role="dialog" style="display:none;">
-								    <div class="modal-dialog"> 
-								      <div class="modal-content">
+							<!-- modal insert -->
+							<div class="example-modal">
+							  <div id="tambah" class="modal fade" role="dialog" style="display:none;">
+							    <div class="modal-dialog"> 
+							      	<div class="modal-content">
 								        <div class="modal-header">
 								          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								          <h3 class="modal-title">Input Pesanan</h3>
 								        </div>
 								        <div class="modal-body">
 								          <form action="actiontambahH1.php" method="post" enctype="multipart/form-data" role="form">
-								           
 								            <div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">No pesanan <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="text" class="form-control" name="no_pesanan" required></div>
-								              </div>
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">No pesanan <span class="text-red">*</span></label>
+									              	<div class="col-sm-8">
+									              		<input type="text" class="form-control" name="no_pesanan" readonly="readonly" placeholder="Nomor Otomatis muncul ketika di proses.">
+									              	</div>
+								              	</div>
 								            </div>
-											<div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">Pesanan <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="text" class="form-control" name="pesanan" required></div>
-								              </div>
+								            <div class="form-group">
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">Nama Pesanan <span class="text-red">*</span></label>
+								              		<div class="col-sm-8">
+								              			<input type="text" class="form-control pesanan" name="pesanan" readonly>
+								              		</div>
+								              	</div>
 								            </div>
-											 <div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">Pelanggan <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="text" class="form-control" name="pelanggan" required></div>
-											  <div class="modal-footer">
-											  </div>
-											  </div>
-											  <div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">Harga <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="text" class="form-control" name="harga" required></div>
-											  <div class="modal-footer">
-											  </div>
-											  </div>
-											  <div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">Nomor Meja <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="text" class="form-control" name="no_meja" required></div>
-								              </div>
+								            <div class="form-group">
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">Harga <span class="text-red">*</span></label>
+								              		<div class="col-sm-8">
+								              			<input type="text" class="form-control harga" name="harga" readonly>
+								              		</div>
+								              	</div>
 								            </div>
-											  <div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">waktu <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="date" class="form-control" name="waktu"value ="<?php echo date("y-m-d")?>" required></div>
-											  </div>
-											  </div>
-											   <div class="form-group">
-								              <div class="row">
-								              <label class="col-sm-3 control-label text-right">Tipe <span class="text-red">*</span></label>
-								              <div class="col-sm-8"><input type="text" class="form-control" name="tipe" required></div>
-											  <div class="modal-footer">
-												</div>
-													</div>
-											  <div class="modal-footer">
-												</div>
-													</div>
-								              <button id="nosave" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-								              <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
+								            <div class="form-group">
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">Waktu <span class="text-red">*</span></label>
+								              		<div class="col-sm-8">
+								              			<input type="date" class="form-control" name="waktu" value="<?php echo date('Y-m-d') ?>" readonly>
+								              		</div>
+								              	</div>
 								            </div>
-								              </div>
+								            <div class="form-group">
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">Tipe <span class="text-red">*</span></label>
+								              		<div class="col-sm-8">
+								              			<input type="text" class="form-control tipe" name="tipe"  readonly>
+								              		</div>
+								              	</div>
 								            </div>
-								              </div>
+								            <div class="form-group">
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">Nomor Meja <span class="text-red">*</span></label>
+								              		<div class="col-sm-8">
+								              			<select class="form-control" name="no_meja" required>
+								              				<option value="">Pilih Meja</option>
+								              				<option value="1">Meja - 1</option>
+								              				<option value="2">Meja - 2</option>
+								              				<option value="3">Meja - 3</option>
+								              				<option value="4">Meja - 4</option>
+								              				<option value="5">Meja - 5</option>
+								              				<option value="6">Meja - 6</option>
+								              				<option value="7">Meja - 7</option>
+								              				<option value="8">Meja - 8</option>
+								              				<option value="9">Meja - 9</option>
+								              				<option value="10">Meja - 10</option>
+								              				<option value="11">Meja - 11</option>
+								              				<option value="12">Meja - 12</option>
+								              				<option value="13">Meja - 13</option>
+								              				<option value="14">Meja - 14</option>
+								              				<option value="15">Meja - 15</option>
+								              			</select>
+								              		</div>
+								              	</div>
 								            </div>
 								            
+								            <div class="form-group">
+								              	<div class="row">
+									              	<label class="col-sm-4 control-label text-right">Nama Pelanggan <span class="text-red">*</span></label>
+								              		<div class="col-sm-8">
+								              			<input type="text" class="form-control" name="pelanggan" required>
+								              		</div>
+								              	</div>
+								            </div>
+
+											<div class="modal-footer">
+												<button id="nosave" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
+								              	<input type="submit" name="submit" class="btn btn-primary" value="Simpan">
+											</div>
 								          </form>
 								        </div>
-								      </div>
-								    </div>
-								  </div>
-								  
-								  
-								</div><!-- modal insert close -->
+							        </div>
+							      </div>
+							    </div>
+							  </div>
 								
 					        </li>
 							
@@ -337,5 +364,21 @@
 	</footer> <!-- End Of Footer -->
 	
 	<a id="back-top" href="#"></a>
+	<script type="text/javascript">
+		$( ".btnpesan" ).click(function() {
+			var nama = $(this).data('nama');
+			var harga = $(this).data('harga');
+			var tipe = $(this).data('tipe');
+
+			$('.pesanan').val(nama);
+			$('.harga').val(harga);
+
+			if (tipe === 1) {
+				$('.tipe').val('makanan');
+			}else{
+				$('.tipe').val('minuman');
+			}
+		});
+	</script>
 </body>
 </html>

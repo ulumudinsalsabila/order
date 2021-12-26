@@ -91,12 +91,15 @@
 							$row = mysqli_num_rows($ambildata);
 
 							if ($row > 0) {
+								$totalharga = 0;
 								while($tampil = mysqli_fetch_array($ambildata)){
+									$totalharga += $tampil['harga'];
+
 									echo "
 									<tr>
 										<td><center>".$no."</center></td>
-										<td><center>".$tampil['no_pesanan']."</center></td>
-										<td><center>".$tampil['no_meja']."</center></td>
+										<td><center>".substr(str_repeat(0, 4).$tampil['no_pesanan'], - 4)."</center></td>
+										<td><center>".substr(str_repeat(0, 3).$tampil['no_meja'], - 3)."</center></td>
 										<td><center>".$tampil['pelanggan']."</center></td>
 										<td><center>".$tampil['pesanan']."</center></td>
 										<td><center>".$tampil['tipe']."</center></td>
@@ -111,6 +114,12 @@
 									</tr>";
 									$no++;
 								}
+									echo "
+									<tr>
+										<td colspan=\"7\" align=\"right\">TOTAL HARGA</td>
+										<td><center>".$totalharga."</center></td>
+										<td></td>
+									</tr>";
 							}else {
 								echo "<tr>
 											<td colspan=\"9\" align=\"center\"> TIdak ada data</td>

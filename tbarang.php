@@ -18,14 +18,24 @@ if (isset($_POST['submit'])) {
     $deskripsi = $_POST['deskripsi'];
     $tipe = $_POST['tipe'];
     $status = $_POST['status'];
- 
-    if ($nama) {
-        $sql = "INSERT INTO barang (nama, harga, deskripsi, tipe, status)
-                VALUES ('$nama', '$harga', '$deskripsi', '$tipe', '$status')";
+    $namaFile = $_FILES['foto']['name'];
+    $namaSementara = $_FILES['foto']['tmp_name'];
+    // tentukan lokasi file akan dipindahkan
+    $dirUpload = "upload/";
+
+    // pindahkan file
+    $upload = move_uploaded_file($namaSementara, $dirUpload.$namaFile);
+
+    if ($upload) {
+        $filepath = $dirUpload.$namaFile;
+
+        $sql = "INSERT INTO barang (nama, harga, deskripsi, tipe, status, filepath)
+                VALUES ('$nama', '$harga', '$deskripsi', '$tipe', '$status', '$filepath')";
+
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            header("Location: barang.php");
             echo "<script>alert('Tambah data berhasil!')</script>";
+            header("Location: barang.php");
             $nama = "";
             $harga = "";
             $deskripsi = "";
@@ -41,7 +51,7 @@ if (isset($_POST['submit'])) {
             echo "<script>alert('Woops! Terjadi kesalahan.')</script>";
         }
     } else {
-        echo "<script>alert('Password Tidak Sesuai')</script>";
+            echo "<script>alert('Upload Gagal! Terjadi kesalahan.')</script>";
     }
 }
  
@@ -57,12 +67,12 @@ if (isset($_POST['submit'])) {
  
     <link rel="stylesheet" type="text/css" href="css/styles.css">
  
-    <title>Form Tambah Barang</title>
+    <title>Form Tambah Menu</title>
 </head>
 <body>
     <div class="container">
-        <form action="" method="POST" class="login-email">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tambah Barang</p>
+        <form action="" method="POST" class="login-email" enctype="multipart/form-data">
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Tambah Menu</p>
             <div class="input-group">
                 <input type="text" placeholder="Nama" name="nama" value="<?php echo $nama; ?>" required>
             </div>
@@ -87,7 +97,12 @@ if (isset($_POST['submit'])) {
                 </select>
             </div>
             <div class="input-group">
+                <input type="file" placeholder="Gambar Produk" name="foto" required>
+            </div>
+            <div class="input-group">
                 <button name="submit" class="btn">Tambah</button><br>
+            </div>
+            <div class="input-group">
                 <a href="barang.php" class="btn">Batal</button>
             </div>
         </form>

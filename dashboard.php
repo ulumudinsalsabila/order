@@ -69,120 +69,39 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Shio Ramen</h4>
-						</a>
-						<p class="price">From: Rp 15.000</p>
-						<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div>	<!-- End of /.col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="single-product.php">
-							<img src="images/product-image-2.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Shoyu Ramen</h4>
-						</a>
-						<p class="price">From: Rp.17.000</p>
-						<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image-3.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Tonkotsu Ramen</h4>
-						</a>
-						<p class="price">From: Rp.16.000</p>
-						<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image-4.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Miso Rame</h4>
-						</a>
-						<p class="price">From: Rp.15.000</p>
-						<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image-5.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Kobe Ramen</h4>
-						</a>
-						<p class="price">From: Rp.17.000</p>
-						<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image-6.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Hakodate Ramen</h4>
-						</a>
-						<p class="price">From: Rp.17.000</p>
-						<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image-7.jpg" alt="">
-						</a>
-						
-						<a href="products.html">
-							<h4>Kyoto Ramen</h4>
-						</a>
-						<p class="price">From: Rp.17.000</p>
-					<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/product-image-8.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Cashu Ramen</h4>
-						</a>
-						<p class="price">From: Rp.15.000</p>
-						<div >
-							<a class="view-link shutter" href="makanan.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-						</div>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
+				<?php
+
+		    		$ambildata = mysqli_query($conn,"SELECT * FROM barang where tipe = 1");
+				
+					$row = mysqli_num_rows($ambildata);
+
+					if ($row > 0) {
+						while($tampil = mysqli_fetch_array($ambildata)){
+							echo "<div class=\"col-md-3\">
+										<div class=\"products\">
+											<a href=\"makanan.php\">
+												<img src=".$tampil['filepath']." alt=\"\">
+											</a>
+											<a href=\"makanan.php\">
+												<h4>".$tampil['nama']."</h4>
+											</a>
+											<p class=\"price\">From: Rp.".$tampil['harga']."</p>
+											<p >".$tampil['deskripsi']."</p>
+											<a class=\"view-link shutter\" href=\"makanan.php\">
+												<i class=\"fa fa-plus-circle\"></i>LIHAT</a>
+										</div>	
+									</div>";
+							$no++;
+						}
+					}else {
+						echo "<tr>
+									<td colspan=\"9\" align=\"center\"> TIdak ada data</td>
+									</tr>";
+					}	
+				?>
 			</div>	<!-- End of /.row -->
 		</div>	<!-- End of /.container -->
 	</section>	<!-- End of Section -->
-
-
-
-
 
 		<!-- Drink Start
     ================================================== -->
@@ -197,113 +116,36 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3">
-					<div class="products">
-						<a href="single-product.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Ice Krem</h4>
-						</a>
-						<p class="price">From: Rp 10.000</p>
-						<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div>	<!-- End of /.col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>ThaiTea</h4>
-						</a>
-						<p class="price">From: Rp.10.000</p>
-						<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Es Buah</h4>
-						</a>
-						<p class="price">From: Rp.10.000</p>
-						<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Jus Stoberry</h4>
-						</a>
-						<p class="price">From: Rp.15.000</p>
-						<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Dalgona</h4>
-						</a>
-						<p class="price">From: Rp.10.000</p>
-						<a<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Lemon Squash</h4>
-						</a>
-						<p class="price">From: Rp.10.000</p>
-						<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						
-						<a href="makanan.php">
-							<h4>Orange Jus</h4>
-						</a>
-						<p class="price">From: Rp.10.000</p>
-						<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
-				<div class="col-md-3">
-					<div class="products">
-						<a href="makanan.php">
-							<img src="images/leci.jpg" alt="">
-						</a>
-						<a href="makanan.php">
-							<h4>Leci</h4>
-						</a>
-						<p class="price">From: Rp.10.000</p>
-						<div >
-							<a class="view-link shutter" href="minuman.php">
-							<i class="fa fa-plus-circle"></i>LIHAT</a>
-						</div>
-					</div>	<!-- End of /.products -->
-				</div> <!-- End Of /.Col-md-3 -->
+				<?php
+
+		    		$ambildata = mysqli_query($conn,"SELECT * FROM barang where tipe = 2");
+				
+					$row = mysqli_num_rows($ambildata);
+
+					if ($row > 0) {
+						while($tampil = mysqli_fetch_array($ambildata)){
+							echo "<div class=\"col-md-3\">
+										<div class=\"products\">
+											<a href=\"minuman.php\">
+												<img src=".$tampil['filepath']." alt=\"\">
+											</a>
+											<a href=\"minuman.php\">
+												<h4>".$tampil['nama']."</h4>
+											</a>
+											<p class=\"price\">From: Rp.".$tampil['harga']."</p>
+											<p >".$tampil['deskripsi']."</p>
+											<a class=\"view-link shutter\" href=\"minuman.php\">
+												<i class=\"fa fa-plus-circle\"></i>LIHAT</a>
+										</div>	
+									</div>";
+							$no++;
+						}
+					}else {
+						echo "<tr>
+								<td colspan=\"9\" align=\"center\"> TIdak ada data</td>
+							</tr>";
+					}	
+				?>
 			</div>	<!-- End of /.row -->
 		</div>	<!-- End of /.container -->
 	</section>	<!-- End of Section -->
