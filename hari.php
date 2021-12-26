@@ -46,6 +46,9 @@
 					</div> -->
 					<form action="hari.php" method="post">
 						<div class="box-toole pull-right" style="margin-right: 2px;">
+							<a href="laporan.php?jenis=Harian&tipe=<?php echo $tipe ?>" class="btn btn-info btn-flat " target="_blank" ><i class="fa fa-file-pdf-o"></i>Cetak Laporan</a>
+						</div>
+						<div class="box-toole pull-right" style="margin-right: 2px;">
 							<button type="submit" class="btn btn-info">Cari Data</button>
 						</div>
 						<div class="box-toole pull-right" style="margin-right: 2px;">
@@ -71,6 +74,7 @@
 								<th><center>PESANAN</center></th>
 								<th><center>TIPE</center></th>
 								<th><center>WAKTU</center></th>
+								<th><center>STATUS</center></th>
 								<th><center>HARGA</center></th>
 								<th><center>OPSI</center></th>
 							</tr>
@@ -97,6 +101,18 @@
 								$totalharga=0;
 								while($tampil = mysqli_fetch_array($ambildata)){
 									$totalharga += $tampil['harga'];
+									$status = $tampil['status'] === '1' ? 'Diproses' : 'Selesai';
+									$button = "
+												<a href=\"delete.php?id=". $tampil['id_pesanan']."\" class=\"btn btn-danger btn-flat btn-xs\" data-toggle=\"modal\" data-target=\"#delete<?php echo $no; ?>\"><i class=\"fa fa-trash\"></i> Delete</a>
+												<a href=\"editH1.php?id=". $tampil['id_pesanan']."\" class=\"btn btn-primary btn-flat btn-xs\"  ><i class=\"fa fa-pencil\"></i>Edit</a>
+												";
+
+									if ($tampil['status'] === '1') {
+										$button .= "<a href=\"proses.php?id=". $tampil['id_pesanan']."\" class=\"btn btn-info btn-flat btn-xs\"  ><i class=\"fa fa-pencil\"></i>Proses</a>";
+									}else{
+										$button .= "<a href=\"cetak.php?id=". $tampil['id_pesanan']."\" class=\"btn btn-info btn-flat btn-xs\" target=\"_blank\" ><i class=\"fa fa-file-pdf-o\"></i>Cetak Nota</a>";
+									}
+
 									echo "
 									<tr>
 										<td><center>".$no."</center></td>
@@ -106,11 +122,11 @@
 										<td><center>".$tampil['pesanan']."</center></td>
 										<td><center>".$tampil['tipe']."</center></td>
 										<td><center>".$tampil['waktu']."</center></td>
+										<td><center>".$status."</center></td>
 										<td><center>".$tampil['harga']."</center></td>
 										<td>
 											<center> 
-												<a href=\"delete.php?id=". $tampil['id_pesanan']."\" class=\"btn btn-danger btn-flat btn-xs\" data-toggle=\"modal\" data-target=\"#delete<?php echo $no; ?>\"><i class=\"fa fa-trash\"></i> Delete</a>
-												<a href=\"editH1.php?id=". $tampil['id_pesanan']."\" class=\"btn btn-primary btn-flat btn-xs\"  ><i class=\"fa fa-pencil\"></i>Edit</a>
+											".$button."
 											</center>
 										</td>
 									</tr>";
@@ -118,7 +134,7 @@
 								}
 									echo "
 									<tr>
-										<td colspan=\"7\" align=\"right\">TOTAL HARGA</td>
+										<td colspan=\"8\" align=\"right\">TOTAL HARGA</td>
 										<td><center>".$totalharga."</center></td>
 										<td></td>
 									</tr>";

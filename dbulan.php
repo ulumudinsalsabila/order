@@ -45,6 +45,9 @@
 					</div> -->
 					<form action="dbulan.php" method="post">
 						<div class="box-toole pull-right" style="margin-right: 2px;">
+							<a href="laporan.php?jenis=Bulanan&tipe=<?php echo $tipe ?>" class="btn btn-info btn-flat " target="_blank" ><i class="fa fa-file-pdf-o"></i>Cetak Laporan</a>
+						</div>
+						<div class="box-toole pull-right" style="margin-right: 2px;">
 							<button type="submit" class="btn btn-info">Cari Data</button>
 						</div>
 						<div class="box-toole pull-right" style="margin-right: 2px;">
