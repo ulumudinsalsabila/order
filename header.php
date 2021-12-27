@@ -15,6 +15,7 @@
 
 		$search = isset($_POST['search']) ? $_POST['search'] : "" ;
 		$tipe = isset($_POST['tipe']) ? $_POST['tipe'] : "" ;
+		$bulan = isset($_POST['bulan']) ? $_POST['bulan'] : "" ;
 		$url = $_SERVER['REQUEST_URI'];
 	?>
 	<section id="top">
@@ -149,6 +150,7 @@
 						    <li><a  href="hari.php">Data Harian</a></li>
 						    <li><a  href="minggu.php">Data Minggu</a></li>
 						    <li><a  href="dbulan.php">Data Bulan</a></li>
+						    <li><a  href="dhistory.php">Histori Transaksi</a></li>
 						</ul>
 					</li>
 					<li class="<?php echo $url === '/order/user.php' || $url === '/order/user.php' || $url === '/order/user.php' ? 'active dropdown' : 'dropdown'?>">

@@ -10,6 +10,8 @@ if ($jenis === 'Harian') {
     $where = " DATE(waktu) = CURDATE()";
 }else if ($jenis === 'Bulanan'){
     $where = " MONTH(waktu) = MONTH(NOW()) AND YEAR(waktu)= YEAR(NOW()) ";
+}else if ($jenis === 'Mingguan'){
+    $where = " waktu >= DATE_SUB(NOW(),INTERVAL 1 WEEK)";
 }else{
     $where = " waktu >= DATE_SUB(NOW(),INTERVAL 1 WEEK)";
 }
